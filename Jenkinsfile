@@ -1,11 +1,5 @@
-
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven'
-        jdk 'JDK21'
-    }
 
     stages {
 
@@ -16,7 +10,7 @@ pipeline {
             }
         }
 
-        stage('Maven Build') {
+        stage('Build') {
             steps {
                 bat 'mvn clean package'
             }
@@ -25,12 +19,6 @@ pipeline {
         stage('Docker Build') {
             steps {
                 bat 'docker build -t ecommerce-app .'
-            }
-        }
-
-        stage('Docker Run') {
-            steps {
-                bat 'docker run -d --name ecommerce-container -p 8080:8080 ecommerce-app'
             }
         }
     }
